@@ -14,7 +14,6 @@ Feature: Adicionar produto ao carrinho na Amazon
 
     Examples:
       |termo_pesquisa|produto_pesquisado|valor_produto|mensagem_de_sucesso|valor_carrinho|
-      |HD Portatil Externo 1TB|HD Portátil Externo 1TB WD Western Digital USB 3.0|371|Adicionado ao carrinho|R$ 371,11|
-      |HD Portatil Externo 1TB|SSD Externo Portátil Sandisk Extreme 1Tb|720|Adicionado ao carrinho|R$ 720,00|
+      |HD Portatil Externo 1TB|HD Externo 1TB USB 3.0 Seagate Expansion Portátil (STEA1000400)|336|Adicionado ao carrinho|R$ 336,90|
 
     # pode usar o terminal e executar o comando (behave features\teste_amazon.feature)

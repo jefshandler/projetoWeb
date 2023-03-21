@@ -9,7 +9,6 @@ from util.ler_csv import ler_dados_csv
 
 class TestAmazon(ChromeBase):
 
-
   def teardown_method(self):
     self.driver.quit()
 
@@ -33,8 +32,7 @@ class TestAmazon(ChromeBase):
     self.driver.find_element(By.ID, "twotabsearchtextbox").send_keys(f"{termo_pesquisa}")
     self.driver.find_element(By.ID, "nav-search-submit-button").click()
     time.sleep(5)
-    # Eu criei a variável termo_de_pesquisa, para tentar buscar o elemento dinamicamente no html, parece meio
-    # fora do contexto porem foi aprendizado.
+
     element = self.driver.find_element(By.XPATH,
                                         f"//*[contains(text(), '{produto_pesquisado}')]")
     assert element
@@ -47,17 +45,8 @@ class TestAmazon(ChromeBase):
     elemento_preco = elemento_produto.find_element(By.XPATH,
                                                    f".//span[contains(@class, 'a-price-whole') and contains(text(), '{valor_produto}')]")
 
-    print(f"Resultado do teste para o produto '{produto_pesquisado}':")
+    assert elemento_preco.text == valor_produto
 
-    if elemento_preco is not None and elemento_preco.text != valor_produto:
-      print(
-        f" - O preço para o produto '{produto_pesquisado}' não estava conforme o esperado. Preço encontrado: {elemento_preco.text}")
-    else:
-      print(f" - O preço para o produto '{produto_pesquisado}', com preço '{valor_produto}', estava conforme o esperado")
-
-
-    # assert self.driver.find_element(By.XPATH,
-    #       "//span[contains(@class, 'a-price-whole') and contains(text(), '274')]").text == f"{valor_produto}"
     self.driver.find_element(By.XPATH,
                              f"//span[contains(text(),'{produto_pesquisado}')]").click()
     assert self.driver.find_element(By.XPATH, "//span[@id='productTitle']").text == f"{produto_pesquisado}"

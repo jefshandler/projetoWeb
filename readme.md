@@ -33,5 +33,4 @@ Organize esse mesmo script em Page Objects e execute localmente.
 - [x] Script organizado com Page Objects
   - [Teste com PageObject](https://github.com/jefshandler/pageObejct)
 
-## OBS quando for corrigir o teste talves tenha que alterar alguns parametros 
-## pois tem sempre alteração de preço
+# OBS quando for corrigir o teste talves tenha que alterar alguns parametros pois tem sempre alteração de preço

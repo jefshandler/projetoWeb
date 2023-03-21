@@ -12,17 +12,17 @@ class TestAmazonTupla(ChromeBase):
         self.driver.quit()
 
     lista_de_valores = [
-        ('HD Portatil Externo 1TB', "HD Portátil Externo 1TB WD Western Digital USB 3.0",
-         '371', 'Adicionado ao carrinho', 'R$ 371,11'),
-        ('HD Portatil Externo 1TB', "SSD Externo Portátil Sandisk Extreme 1Tb",
-         '720', 'Adicionado ao carrinho', 'R$ 720,00'),
+        ('HD externo 1TB', "HD Externo 1TB USB 3.0 Seagate Expansion Portátil (STEA1000400)",
+         '336', 'Adicionado ao carrinho', 'R$ 336,90'),
+        ('HD externo 1TB', "M-Power Ssd 1tb E30 Portable 520Mbs Externo Portátil Tipo C",
+         '814', 'Adicionado ao carrinho', 'R$ 814,47'),
     ]
 
     @pytest.mark.parametrize(
         'termo_pesquisa,produto_pesquisado,valor_produto,mensagem_de_sucesso,valor_carrinho',
         lista_de_valores)
     def test_amazon(self, termo_pesquisa, produto_pesquisado, valor_produto, mensagem_de_sucesso, valor_carrinho):
-        wait_time = 10
+        wait_time = 20
 
         url = "https://www.amazon.com.br/"
 
@@ -46,17 +46,7 @@ class TestAmazonTupla(ChromeBase):
                                                     f"//*[contains(text(), '{produto_pesquisado}')]/ancestor::div[contains(@class, 's-include-content-margin')]")
         elemento_preco = elemento_produto.find_element(By.XPATH,
                                                        f".//span[contains(@class, 'a-price-whole') and contains(text(), '{valor_produto}')]")
-
-        print(f"Resultado do teste para o produto '{produto_pesquisado}':")
-
-        if elemento_preco is not None and elemento_preco.text != valor_produto:
-            print(
-                f" - O preço para o produto '{produto_pesquisado}' não estava conforme o esperado. Preço encontrado: {elemento_preco.text}")
-        else:
-            print(
-                f" - O preço para o produto '{produto_pesquisado}', com preço '{valor_produto}', estava conforme o esperado")
-
-
+        assert elemento_preco.text == valor_produto
         self.driver.find_element(By.XPATH,
                                  f"//span[contains(text(),'{produto_pesquisado}')]").click()
         assert self.driver.find_element(By.XPATH, "//span[@id='productTitle']").text == f"{produto_pesquisado}"
